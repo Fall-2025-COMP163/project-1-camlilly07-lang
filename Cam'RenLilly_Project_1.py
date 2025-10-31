@@ -8,77 +8,72 @@ Example: AI helped with file I/O error handling logic in save_character function
 """
 
 def create_character(name, character_class):
+    level = 1
+    strength, magic, health = calculate_stats(character_class, level)
+
+    valid_classes = ["Warrior", "Mage", "Rogue", "Cleric"]
+    if character_class not in valid_classes:
+        return None
+
      #.capitalize() method is used to ensure the first letter of the character class is uppercase 
     character_class = character_class.capitalize()
 
     valid_classes = ["Warrior", "Mage", "Rogue", "Cleric"]
     if character_class not in valid_classes:
         return None
-
-    level = 1
-     #calculate_stats is called and strength, magic, and health are given the initial stats.
-    strength, magic, health = calculate_stats(character_class, level)
-
-    if character_class == "Mage":
-        gold = 45
-    elif character_class == "Warrior":
-        gold = 60
-    elif character_class == "Rogue":
-        gold = 70
-    elif character_class == "Cleric":
-        gold = 50
-    else:
-        gold = 40
-    #dictionary of all of the defined variables is returned
-    character = {
+    
+     character = {
         "name": name,
         "class": character_class,
-        "level": level,
+        "level": 1,
         "strength": strength,
         "magic": magic,
         "health": health,
-        "gold": gold
+        "gold": 40
     }
     return character
 
+   
 
 def calculate_stats(character_class, level):
-     
     #if/elif/else statements used to test conditions and return the right stats accordingly.
     #different classes have different formulas for calculating stats
-    if character_class == "Mage":
-        strength = 3 + (level * 3)
-        magic = 20 + (level * 5)
-        health = 30 + (level * 10)
-    elif character_class == "Warrior":
-        strength = 20 + (level * 4)
-        magic = 5 + (level * 2)
-        health = 45 + (level * 10)
-    elif character_class == "Rogue":
-        strength = 10 + (level * 3)
-        magic = 5 + (level * 5)
-        health = 25 + (level * 10)
-    elif character_class == "Cleric":
-        strength = 12 + (level * 3)
-        magic = 10 + (level * 4)
-        health = 40 + (level * 10)
-    else:
-        return (0, 0, 0)
+    strength = 10
+    stength = 12
+    health = 30
 
-    return (strength, magic, health)
+
+    if character_class == "mage":
+        strength += 15
+        magic += 40
+        health += 30
+    elif character_class == "warrior":
+        strength += 50
+        magic += 10
+        health += 40
+    elif character_class == "rogue":
+        strength += 25
+        magic += 20
+        health += 60
+    elif character_class == "cleric":
+        strength += 15
+        magic += 25
+        health += 30
+    else:
+        print('invalid')
+        return calculate_stats('Mage', level)
+
+    return strength, magic, health
 
 def save_character(character, filename):
-     #writes the character's info into a text file.
     import os
     #file is opened and char_file is filled with the character's stats
     #Ai used to fix error like char_file on line 92
-     
-    #if character isn't a dictionary or filename is empty, return false
     if not isinstance(character, dict) or not filename:
         return False
-    #directory extracts the directory portion of the filename
+    
     directory = os.path.dirname(filename)
-    #if directory doesn't exist returns false
+
     if directory and not os.path.exists(directory):
         return False
     
@@ -98,129 +93,54 @@ def save_character(character, filename):
 
     
 
-"""
-    Saves character to text file in specific format
-    Returns: True if successful, False if error occurred
-    
-    Required file format:
-    Character Name: [name]
-    Class: [class]
-    Level: [level]
-    Strength: [strength]
-    Magic: [magic]
-    Health: [health]
-    Gold: [gold]
-    """
-    # TODO: Implement this function
-    # Remember to handle file errors gracefully
     
 
 def load_character(filename):
-     #Reads character data from a saved and turn it into a dictionary
         import os
         #checks to see if the file exists and returns None if it doesn't
         if not os.path.exists(filename):
             return None
+        
+        #opens the file then reads it then closes file.
+        file = open(filename, "r")
+        lines = file.readlines()
+        file.close()
 
-        with open(filename, "r",) as char_file:
-            #Reads all the lines in char_file
-            lines = char_file.readlines()
-        #curly brackets used for dictionary
-        char_dict = {}
-        key_dict = {
-        "name": "name",
-        "class": "class",
-        "level": "level",
-        "strength": "strength",
-        "magic": "magic",
-        "health": "health",
-        "gold": "gold"
-          }
-        #Ai was used for this segment to successfully strip and fulfill the case sensitive requirements.
+        character = {}
+
         for line in lines:
-            if ':' in line:
-                #strip() removes any whitespace or newlines 
-                #split() will split the line into parts using on the first colon
-                key, value = line.strip().split(": ", 1)
-               #makes key lowercase and replaces character with nothing.
-                key = key.lower().replace("character ", "")
-                 #removes whitespace of value.
-                value = value.strip()
-          
-                normalized_key = key_dict.get(key, key.lower())
-                char_dict[normalized_key] = value
+            if ": " not in line:
+                continue
+            key, value = line.strip().split(": ", 1)
+            key = key.lower().replace("character ", "")
+            if value.isdigit():
+                value = int(value)
+            character[key] = value
 
-        for key in ["level", "strength", "magic", "health", "gold"]:
-             #turns key strings into integers
-                    if key in char_dict:
-                        char_dict[key] = int(char_dict[key])
-        return char_dict
-    
+        if len(character) == 0:
+            return None
 
-    
-
-"""
-    Loads character from text file
-    Returns: character dictionary if successful, None if file not found
-    """
-    # TODO: Implement this function
-    # Remember to handle file not found errors
-    
-
+        return character
+        
 def display_character(character):
-    if not character:
-        print("No character data to display.")
-        #returning nothing results in "None"
-        return
 
     print("=== CHARACTER SHEET ===")
-     #for loop prints character data in character sheet format ex: name: Aria
     for key, value in character.items():
         print(f"{key}: {value}")
     
-
-    """
-    Prints formatted character sheet
-    Returns: None (prints to console)
-    
-    Example output:
-    === CHARACTER SHEET ===
-    Name: Aria
-    Class: Mage
-    Level: 1
-    Strength: 5
-    Magic: 15
-    Health: 80
-    Gold: 100
-    """
-    # TODO: Implement this function
     
 #Ai recommended that the stats should be recalculated when leveling up for more consistency
 def level_up(character):
-     #if input is invalid returns nothing
-    if not character or "level" not in character:
-        return
-    
     #increases character level
     character['level'] += 1
     #This line calls the calculate_stats function to get the new stats based on the updated level
     strength, magic, health = calculate_stats(character['class'], character['level'])
-    #all of these stats are updated in the character dictionary from the new calculated stats
-    character['strength'] = strength
-    character['magic'] = magic
-    character['health'] = health
-    character['gold'] += 40
+    character["strength"] = strength
+    character["magic"] = magic
+    character["health"] = health
 
+    print(f"\n{character['name']} earned a level up your level is now {character['level']}.")
 
-
-    """
-    Increases character level and recalculates stats
-    Modifies the character dictionary directly
-    Returns: None
-    """
-    # TODO: Implement this function
-    # Remember to recalculate stats for the new level
-    
 
 # Main program area (optional - for testing your functions)
 if __name__ == "__main__":
@@ -240,8 +160,3 @@ if __name__ == "__main__":
     # display_character(char)
     # save_character(char, "my_character.txt")
     # loaded = load_character("my_character.txt")
-
-
-
-
-
