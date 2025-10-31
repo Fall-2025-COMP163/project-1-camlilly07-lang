@@ -42,6 +42,7 @@ def create_character(name, character_class):
 
 
 def calculate_stats(character_class, level):
+     
     #if/elif/else statements used to test conditions and return the right stats accordingly.
     #different classes have different formulas for calculating stats
     if character_class == "Mage":
@@ -66,6 +67,7 @@ def calculate_stats(character_class, level):
     return (strength, magic, health)
 
 def save_character(character, filename):
+     #writes the character's info into a text file.
     import os
     #file is opened and char_file is filled with the character's stats
     #Ai used to fix error like char_file on line 92
@@ -113,6 +115,7 @@ def save_character(character, filename):
     
 
 def load_character(filename):
+     #Reads character data from a saved and turn it into a dictionary
         import os
         #checks to see if the file exists and returns None if it doesn't
         if not os.path.exists(filename):
@@ -236,6 +239,7 @@ if __name__ == "__main__":
     # display_character(char)
     # save_character(char, "my_character.txt")
     # loaded = load_character("my_character.txt")
+
 
 
 
