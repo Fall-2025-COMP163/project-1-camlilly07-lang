@@ -16,6 +16,7 @@ def create_character(name, character_class):
         return None
 
     level = 1
+     #calculate_stats is called and strength, magic, and health are given the initial stats.
     strength, magic, health = calculate_stats(character_class, level)
 
     if character_class == "Mage":
@@ -239,6 +240,7 @@ if __name__ == "__main__":
     # display_character(char)
     # save_character(char, "my_character.txt")
     # loaded = load_character("my_character.txt")
+
 
 
 
