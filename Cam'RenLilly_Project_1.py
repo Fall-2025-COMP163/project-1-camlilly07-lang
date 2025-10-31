@@ -132,7 +132,7 @@ def load_character(filename):
         "health": "health",
         "gold": "gold"
           }
-
+        #Ai was used for this segment to successfully strip and fulfill the case sensitive requirements.
         for line in lines:
             if ':' in line:
                 #strip() removes any whitespace or newlines 
@@ -236,5 +236,6 @@ if __name__ == "__main__":
     # display_character(char)
     # save_character(char, "my_character.txt")
     # loaded = load_character("my_character.txt")
+
 
 
