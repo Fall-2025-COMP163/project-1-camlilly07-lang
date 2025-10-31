@@ -20,7 +20,7 @@ def create_character(name, character_class):
     strength, magic, health = calculate_stats(character_class, level)
 
     if character_class == "Mage":
-        gold = 40
+        gold = 45
     elif character_class == "Warrior":
         gold = 60
     elif character_class == "Rogue":
@@ -43,23 +43,7 @@ def create_character(name, character_class):
     return character
 
 
-    """
-    Creates a new character dictionary with calculated stats
-    Returns: dictionary with keys: name, class, level, strength, magic, health, gold
-
-
-
-
-
-
-
- 
     
-    
-    Example:
-    char = create_character("Aria", "Mage")
-    # Should return: {"name": "Aria", "class": "Mage", "level": 1, "strength": 5, "magic": 15, "health": 80, "gold": 100}
-    """
     # TODO: Implement this function
     # Remember to use calculate_stats() function for stat calculation
     
@@ -69,7 +53,7 @@ def calculate_stats(character_class, level):
     #if/elif/else statements used to test conditions and return the right stats accordingly.
     #different classes have different formulas for calculating stats
     if character_class == "Mage":
-        strength = 3 + level
+        strength = 3 + (level * 3)
         magic = 20 + (level * 5)
         health = 30 + (level * 10)
     elif character_class == "Warrior":
@@ -85,40 +69,20 @@ def calculate_stats(character_class, level):
         magic = 10 + (level * 4)
         health = 40 + (level * 10)
     else:
-        print('Invalid character class')
+        return health, magic, strength = 0, 0, 0
         
     return (strength, magic, health)
 
-    """
     
-    
-    
-    Design your own formulas! Ideas:
-    - Warriors: High strength, low magic, high health
-    - Mages: Low strength, high magic, medium health  
-    - Rogues: Medium strength, medium magic, low health
-    - Clerics: Medium strength, high magic, high health
-    """
-    # TODO: Implement this function
-    # Return a tuple: (strength, magic, health)
 
 
     
 
 def save_character(character, filename):
-    import os
+
     #file is opened and char_file is filled with the character's stats
     #Ai used to fix error like char_file on line 92
-    if not isinstance(character, dict) or not filename:
-        return False
-    
-    directory = os.path.dirname(filename)
-
-    if directory and not os.path.exists(directory):
-        return False
-    
-   
-        #with closes the file automatically after the block of code finishes
+    #with closes the file automatically after the block of code finishes
     with open(filename, "w",) as char_file:
         char_file.write(f"Character Name: {character['name']}\n")
         char_file.write(f"Class: {character['class']}\n")
@@ -133,22 +97,7 @@ def save_character(character, filename):
 
     
 
-"""
-    Saves character to text file in specific format
-    Returns: True if successful, False if error occurred
-    
-    Required file format:
-    Character Name: [name]
-    Class: [class]
-    Level: [level]
-    Strength: [strength]
-    Magic: [magic]
-    Health: [health]
-    Gold: [gold]
-    """
-    # TODO: Implement this function
-    # Remember to handle file errors gracefully
-    
+
 
 def load_character(filename):
         import os
@@ -185,17 +134,11 @@ def load_character(filename):
                     if key in char_dict:
                         char_dict[key] = int(char_dict[key])
         return char_dict
-    #Ai was used to make the except work by using  FileNotFoundError
-    #FileNotFoundError will occur when a file is opened that doesn't exist.
+    
 
     
 
-"""
-    Loads character from text file
-    Returns: character dictionary if successful, None if file not found
-    """
-    # TODO: Implement this function
-    # Remember to handle file not found errors
+
     
 
 def display_character(character):
@@ -209,21 +152,7 @@ def display_character(character):
         print(f"{key}: {value}")
     
 
-    """
-    Prints formatted character sheet
-    Returns: None (prints to console)
-    
-    Example output:
-    === CHARACTER SHEET ===
-    Name: Aria
-    Class: Mage
-    Level: 1
-    Strength: 5
-    Magic: 15
-    Health: 80
-    Gold: 100
-    """
-    # TODO: Implement this function
+   
     
 #Ai recommended that the stats should be recalculated when leveling up for more consistency
 def level_up(character):
@@ -243,13 +172,8 @@ def level_up(character):
 
 
 
-    """
-    Increases character level and recalculates stats
-    Modifies the character dictionary directly
-    Returns: None
-    """
-    # TODO: Implement this function
-    # Remember to recalculate stats for the new level
+    
+    
     
 
 # Main program area (optional - for testing your functions)
