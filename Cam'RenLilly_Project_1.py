@@ -151,8 +151,7 @@ def load_character(filename):
                     if key in char_dict:
                         char_dict[key] = int(char_dict[key])
         return char_dict
-    #Ai was used to make the except work by using  FileNotFoundError
-    #FileNotFoundError will occur when a file is opened that doesn't exist.
+    
 
     
 
@@ -237,4 +236,5 @@ if __name__ == "__main__":
     # display_character(char)
     # save_character(char, "my_character.txt")
     # loaded = load_character("my_character.txt")
+
 
