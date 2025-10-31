@@ -69,7 +69,7 @@ def calculate_stats(character_class, level):
         magic = 10 + (level * 4)
         health = 40 + (level * 10)
     else:
-        return health, magic, strength = 0, 0, 0
+        return (0,0,0)
         
     return (strength, magic, health)
 
@@ -194,3 +194,4 @@ if __name__ == "__main__":
     # display_character(char)
     # save_character(char, "my_character.txt")
     # loaded = load_character("my_character.txt")
+
