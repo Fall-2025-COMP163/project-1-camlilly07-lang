@@ -69,11 +69,13 @@ def save_character(character, filename):
     import os
     #file is opened and char_file is filled with the character's stats
     #Ai used to fix error like char_file on line 92
+     
+    #if character isn't a dictionary or filename is empty, return false
     if not isinstance(character, dict) or not filename:
         return False
-    
+    #directory extracts the directory portion of the filename
     directory = os.path.dirname(filename)
-
+    #if directory doesn't exist returns false
     if directory and not os.path.exists(directory):
         return False
     
@@ -136,12 +138,16 @@ def load_character(filename):
                 #strip() removes any whitespace or newlines 
                 #split() will split the line into parts using on the first colon
                 key, value = line.strip().split(": ", 1)
+               #makes key lowercase and replaces character with nothing.
                 key = key.lower().replace("character ", "")
+                 #removes whitespace of value.
                 value = value.strip()
+          
                 normalized_key = key_dict.get(key, key.lower())
                 char_dict[normalized_key] = value
 
         for key in ["level", "strength", "magic", "health", "gold"]:
+             #turns key strings into integers
                     if key in char_dict:
                         char_dict[key] = int(char_dict[key])
         return char_dict
@@ -165,6 +171,7 @@ def display_character(character):
         return
 
     print("=== CHARACTER SHEET ===")
+     #for loop prints character data in character sheet format ex: name: Aria
     for key, value in character.items():
         print(f"{key}: {value}")
     
@@ -187,7 +194,7 @@ def display_character(character):
     
 #Ai recommended that the stats should be recalculated when leveling up for more consistency
 def level_up(character):
-
+     #if input is invalid returns nothing
     if not character or "level" not in character:
         return
     
@@ -230,3 +237,4 @@ if __name__ == "__main__":
     # display_character(char)
     # save_character(char, "my_character.txt")
     # loaded = load_character("my_character.txt")
+
