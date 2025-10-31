@@ -7,9 +7,8 @@ AI Usage: [Document any AI assistance used]
 Example: AI helped with file I/O error handling logic in save_character function
 """
 
-
 def create_character(name, character_class):
-    #.capitalize() method is used to ensure the first letter of the character class is uppercase 
+     #.capitalize() method is used to ensure the first letter of the character class is uppercase 
     character_class = character_class.capitalize()
 
     valid_classes = ["Warrior", "Mage", "Rogue", "Cleric"]
@@ -29,9 +28,8 @@ def create_character(name, character_class):
         gold = 50
     else:
         gold = 40
-    
     #dictionary of all of the defined variables is returned
-    character =  {
+    character = {
         "name": name,
         "class": character_class,
         "level": level,
@@ -39,17 +37,11 @@ def create_character(name, character_class):
         "magic": magic,
         "health": health,
         "gold": gold
-        }
+    }
     return character
 
 
-    
-    # TODO: Implement this function
-    # Remember to use calculate_stats() function for stat calculation
-    
-
 def calculate_stats(character_class, level):
-
     #if/elif/else statements used to test conditions and return the right stats accordingly.
     #different classes have different formulas for calculating stats
     if character_class == "Mage":
@@ -69,20 +61,24 @@ def calculate_stats(character_class, level):
         magic = 10 + (level * 4)
         health = 40 + (level * 10)
     else:
-        return (0,0,0)
-        
+        return (0, 0, 0)
+
     return (strength, magic, health)
 
-    
-
-
-    
-
 def save_character(character, filename):
-
+    import os
     #file is opened and char_file is filled with the character's stats
     #Ai used to fix error like char_file on line 92
-    #with closes the file automatically after the block of code finishes
+    if not isinstance(character, dict) or not filename:
+        return False
+    
+    directory = os.path.dirname(filename)
+
+    if directory and not os.path.exists(directory):
+        return False
+    
+   
+        #with closes the file automatically after the block of code finishes
     with open(filename, "w",) as char_file:
         char_file.write(f"Character Name: {character['name']}\n")
         char_file.write(f"Class: {character['class']}\n")
@@ -97,7 +93,22 @@ def save_character(character, filename):
 
     
 
-
+"""
+    Saves character to text file in specific format
+    Returns: True if successful, False if error occurred
+    
+    Required file format:
+    Character Name: [name]
+    Class: [class]
+    Level: [level]
+    Strength: [strength]
+    Magic: [magic]
+    Health: [health]
+    Gold: [gold]
+    """
+    # TODO: Implement this function
+    # Remember to handle file errors gracefully
+    
 
 def load_character(filename):
         import os
@@ -134,11 +145,17 @@ def load_character(filename):
                     if key in char_dict:
                         char_dict[key] = int(char_dict[key])
         return char_dict
-    
+    #Ai was used to make the except work by using  FileNotFoundError
+    #FileNotFoundError will occur when a file is opened that doesn't exist.
 
     
 
-
+"""
+    Loads character from text file
+    Returns: character dictionary if successful, None if file not found
+    """
+    # TODO: Implement this function
+    # Remember to handle file not found errors
     
 
 def display_character(character):
@@ -152,7 +169,21 @@ def display_character(character):
         print(f"{key}: {value}")
     
 
-   
+    """
+    Prints formatted character sheet
+    Returns: None (prints to console)
+    
+    Example output:
+    === CHARACTER SHEET ===
+    Name: Aria
+    Class: Mage
+    Level: 1
+    Strength: 5
+    Magic: 15
+    Health: 80
+    Gold: 100
+    """
+    # TODO: Implement this function
     
 #Ai recommended that the stats should be recalculated when leveling up for more consistency
 def level_up(character):
@@ -172,8 +203,13 @@ def level_up(character):
 
 
 
-    
-    
+    """
+    Increases character level and recalculates stats
+    Modifies the character dictionary directly
+    Returns: None
+    """
+    # TODO: Implement this function
+    # Remember to recalculate stats for the new level
     
 
 # Main program area (optional - for testing your functions)
@@ -194,4 +230,3 @@ if __name__ == "__main__":
     # display_character(char)
     # save_character(char, "my_character.txt")
     # loaded = load_character("my_character.txt")
-
