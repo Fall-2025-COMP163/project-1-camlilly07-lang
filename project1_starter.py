@@ -77,7 +77,7 @@ def save_character(character, filename):
         return False  # returns False if filename is empty
 
     import os
-
+    #Ai used to improve file handling 
     # Extracts directory path from filename
     directory = os.path.dirname(filename)
 
@@ -117,14 +117,14 @@ def load_character(filename):
     #closes file manually
     file.close()
 
-    
+    #Ai used to create for loop that successfully clears data of white space and formats code 
     data = {}
     for line in lines:
         if ":" in line:
             #splits on only the first colon ex: key: value
             key, value = line.strip().split(": ", 1)
             data[key] = value
-
+    # Ai used for character dictionary to improve functionality of code
     # Convert string values to proper types and return character dictionary
     character = {
         "name": data.get("Character Name", ""),
@@ -186,4 +186,5 @@ if __name__ == "__main__":
 
     print("\nLeveling up character...")
     level_up(loaded)
+
     display_character(loaded)
